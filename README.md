@@ -46,21 +46,19 @@ const generate = useCallback(
 
 ## Result
 
-![Result image](https://github.com/evgenusov/react-native-image-generator/blob/main/images/result.png?raw=true)
-
+<img src="https://github.com/evgenusov/react-native-image-generator/blob/main/images/result.png?raw=true" width="250" />
 
 ## Hot to use assets
 To use local image you need to put it in assets
 ### iOS
 In iOS you need to put it Images:
-![This is an image](https://github.com/evgenusov/react-native-image-generator/blob/main/images/xcode_assets.jpeg?raw=true)
+
+<img src="https://github.com/evgenusov/react-native-image-generator/blob/main/images/xcode_assets.jpeg?raw=true"  />
 
 
-
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+## Platform
+- [+] iOS
+- [] Android (in progress)
 
 ## License
 
