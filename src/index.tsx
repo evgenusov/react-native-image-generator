@@ -17,6 +17,21 @@ const ImageGenerator = NativeModules.ImageGenerator
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return ImageGenerator.multiply(a, b);
+export async function addLayer(data: {
+  uri: string,
+  width: number,
+  height: number,
+  x: number,
+  y: number
+}): Promise<void> {
+  return await ImageGenerator.addLayer(data.uri, data.width, data.height, data.x, data.y);
+}
+
+
+export async function save(data: {
+  filename: string,
+  width: number,
+  height: number,
+}): Promise<string> {
+  return await ImageGenerator.save(data.filename, data.width, data.height);
 }
