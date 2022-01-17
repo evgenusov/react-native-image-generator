@@ -1,43 +1,41 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text, Image } from 'react-native';
-import { addLayer, save } from 'react-native-image-generator';
+import { generate } from 'react-native-image-generator';
 
 export default function App() {
   const [result, setResult] = React.useState<string | undefined>();
 
-
-  const generate = React.useCallback(
-    async () => {
-      await addLayer({
-        uri: 'https://picsum.photos/200/300',
-        width: 200,
-        height: 300,
-        x: 0,
-        y: 0,
-      });
-
-      await addLayer({
-        uri: 'Mario',
-        width: 200,
-        height: 300,
-        x: 0,
-        y: 0,
-      });
-
-      const r = await save({
+  const generateImage = React.useCallback(async () => {
+    const r = await generate(
+      [
+        {
+          uri: 'https://picsum.photos/200/300',
+          width: 200,
+          height: 300,
+          x: 0,
+          y: 0,
+        },
+        {
+          uri: 'Mario',
+          width: 200,
+          height: 300,
+          x: 0,
+          y: 0,
+        },
+      ],
+      {
         filename: 'test.png',
         width: 200,
         height: 300,
-      });
-      setResult(r);
-    },
-    [],
-  )
+      }
+    );
+
+    setResult(r);
+  }, []);
 
   React.useEffect(() => {
-    generate();
-
+    generateImage();
   }, []);
 
   return (

@@ -1,4 +1,5 @@
 import Accelerate
+import Foundation
 
 struct Layer {
     var uri: String
@@ -19,41 +20,38 @@ struct Layer {
 @objc(ImageGenerator)
 class ImageGenerator: NSObject {
     
-    private var layers: [Layer] = [];
-    
-    
-    /// Add a new layer
-    @objc(addLayer:withWidth:withHeight:withX:withY:withResolver:withRejecter:)
-    func addLayer(uri: String,
-                  width: Float,
-                  height: Float,
-                  x: Float,
-                  y: Float,
+    @objc(generate:withConfig:withResolver:withRejecter:)
+    func generate(layers: NSDictionary,
+                  config: NSDictionary,
                   resolve:RCTPromiseResolveBlock,
                   reject:RCTPromiseRejectBlock) {
+        let width = config["width"] as! Float;
+        let height = config["height"] as! Float;
+        let filename = config["filename"] as! String;
         
-        let layer = Layer(uri: uri, width: width, height: height, x: x, y: y);
-        layers.append(layer);
-        
-        resolve(nil)
-    }
-    
-    /// save image from layers
-    @objc(save:withWidth:withHeight:withResolver:withRejecter:)
-    func save(filename: String, width: Float, height: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let newSize = CGSize(width: CGFloat(width), height: CGFloat(height))
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-
+        
+        let layers: [Layer] = (layers["layers"] as! [NSDictionary]).map { (item) -> Layer in
+            return Layer(
+                uri: item["uri"] as! String,
+                width: item["width"] as! Float,
+                height: item["height"] as! Float,
+                x: item["x"] as! Float,
+                y: item["y"] as! Float
+            );
+        }
+        
         for layer in layers {
             if(layer.uri.contains("http")) {
-            let url = URL(string: layer.uri)
-            let data = try? Data(contentsOf: url!)
-            
-            let imageLayer = UIImage(data: data!);
-                imageLayer!.draw(in: CGRect(
-                    origin: CGPoint(x: CGFloat(layer.x), y: CGFloat(layer.y)),
-                    size: CGSize(width: CGFloat(layer.width), height: CGFloat(layer.height)))
-                )
+                let url = URL(string: layer.uri)
+                let data = try? Data(contentsOf: url!)
+                
+                let imageLayer = UIImage(data: data!);
+                    imageLayer!.draw(in: CGRect(
+                        origin: CGPoint(x: CGFloat(layer.x), y: CGFloat(layer.y)),
+                        size: CGSize(width: CGFloat(layer.width), height: CGFloat(layer.height)))
+                    )
             } else {
                 let imageLayer = UIImage(named: layer.uri)
                 imageLayer!.draw(in: CGRect(
@@ -61,8 +59,6 @@ class ImageGenerator: NSObject {
                     size: CGSize(width: CGFloat(layer.width), height: CGFloat(layer.height)))
                 )
             }
-          
-            
         }
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -74,13 +70,9 @@ class ImageGenerator: NSObject {
         let pngData = newImage!.pngData();
         do {
             try pngData?.write(to: imageURL);
-            resolve(imageURL.absoluteString)
-            self.layers = [];
-
+            resolve(imageURL.absoluteString);
         } catch {
             reject("error save", "idk", error)
         }
-        
     }
-    
 }
