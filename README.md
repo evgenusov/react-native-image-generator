@@ -14,34 +14,29 @@ yarn add react-native-image-generator
 import { generate } from 'react-native-image-generator';
 
 // ...
-
-const generateImage = React.useCallback(async () => {
-  const r = await generate(
-    [
-      {
-        uri: 'https://picsum.photos/200/300',
-        width: 200,
-        height: 300,
-        x: 0,
-        y: 0,
-      },
-      {
-        uri: 'Mario',
-        width: 200,
-        height: 300,
-        x: 0,
-        y: 0,
-      },
-    ],
+const r = await generate(
+  [
     {
-      filename: 'test.png',
+      uri: 'https://picsum.photos/200/300',
       width: 200,
       height: 300,
-    }
-  );
-
-  setResult(r);
-}, []);
+      x: 0,
+      y: 0,
+    },
+    {
+      uri: 'Mario', // named asset 
+      width: 200,
+      height: 300,
+      x: 0,
+      y: 0,
+    },
+  ],
+  {
+    filename: 'test.png',
+    width: 200,
+    height: 300,
+  }
+);
 ```
 
 ## Result
