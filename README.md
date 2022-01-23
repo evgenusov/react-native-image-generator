@@ -24,7 +24,7 @@ const r = await generate(
       y: 0,
     },
     {
-      uri: 'Mario', // named asset 
+      uri: 'Mario', // named asset or assets file in android
       width: 200,
       height: 300,
       x: 0,
@@ -53,10 +53,15 @@ In iOS you need to put it Images:
 
 <img src="https://github.com/evgenusov/react-native-image-generator/blob/main/images/xcode_assets.jpeg?raw=true"  />
 
-## Platform
+### Android
+Make sure that your file placed here `android/app/src/main/assets/`. For example:
+`android/app/src/main/assets/Mario`
 
-- [+] iOS
-- [] Android (in progress)
+
+## Platforms
+
+- iOS
+- Android
 
 ## License
 
