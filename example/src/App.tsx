@@ -23,6 +23,17 @@ export default function App() {
           x: 0,
           y: 0,
         },
+        {
+          text: "DESIGN",
+          fontSize: 23,
+          width: 200,
+          height: 300,
+          x: 50,
+          y: 200,
+          color: [0, 255, 0, 1.0],
+          fontFamily: "Helvitica",
+
+        },
       ],
       {
         filename: 'test.png',
