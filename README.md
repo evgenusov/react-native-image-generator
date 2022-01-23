@@ -30,6 +30,16 @@ const r = await generate(
       x: 0,
       y: 0,
     },
+    {
+      text: 'DESIGN',
+      fontSize: 23,
+      width: 300,
+      height: 300,
+      x: 50,
+      y: 50,
+      color: [0, 255, 0, 1.0],
+      fontFamily: Platform.OS === 'ios' ? 'Helvitica' : 'Roboto',
+    },
   ],
   {
     filename: 'test.png',
@@ -54,9 +64,9 @@ In iOS you need to put it Images:
 <img src="https://github.com/evgenusov/react-native-image-generator/blob/main/images/xcode_assets.jpeg?raw=true"  />
 
 ### Android
+
 Make sure that your file placed here `android/app/src/main/assets/`. For example:
 `android/app/src/main/assets/Mario`
-
 
 ## Platforms
 
