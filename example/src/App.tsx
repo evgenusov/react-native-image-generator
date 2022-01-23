@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, Platform } from 'react-native';
 import { generate } from 'react-native-image-generator';
 
 export default function App() {
@@ -26,12 +26,12 @@ export default function App() {
         {
           text: "DESIGN",
           fontSize: 23,
-          width: 200,
+          width: 300,
           height: 300,
           x: 50,
-          y: 200,
+          y: 50,
           color: [0, 255, 0, 1.0],
-          fontFamily: "Helvitica",
+          fontFamily: Platform.OS === 'ios' ? "Helvitica" : "Roboto",
 
         },
       ],
@@ -52,7 +52,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
-      <Image source={{ uri: result }} style={{ width: 200, height: 300 }} />
+      <Image source={{ uri: result }} style={{ width: 200, height: 300 }} onError={(e) => console.error(e.nativeEvent)}/>
     </View>
   );
 }
