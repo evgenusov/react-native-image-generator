@@ -38,7 +38,7 @@ const r = await generate(
       x: 50,
       y: 50,
       color: [0, 255, 0, 1.0],
-      fontFamily: Platform.OS === 'ios' ? 'Helvitica' : 'Roboto',
+      fontFamily: Platform.OS === 'ios' ? 'Helvetica' : 'Roboto',
     },
   ],
   {
