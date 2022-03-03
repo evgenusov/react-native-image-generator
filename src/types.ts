@@ -10,7 +10,7 @@ export interface IPictureLayer {
 export interface ITextLayer {
   text: string;
   fontSize?: number;
-  fontName?: string;
+  fontFamily?: string;
   color: [number, number, number, number];
   width: number;
   height: number;
