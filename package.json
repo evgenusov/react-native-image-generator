@@ -1,6 +1,6 @@
 {
   "name": "react-native-image-generator",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Library for generate images from other images",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
