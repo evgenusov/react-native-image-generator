@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text, Image, Platform } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { generate } from 'react-native-image-generator';
 
 export default function App() {
@@ -24,21 +24,20 @@ export default function App() {
           y: 0,
         },
         {
-          text: "DESIGN",
+          text: 'DESIGN',
           fontSize: 23,
           width: 300,
           height: 300,
           x: 50,
           y: 50,
           color: [0, 255, 0, 1.0],
-          fontFamily: Platform.OS === 'ios' ? "Helvitica" : "Roboto",
-
         },
       ],
       {
         filename: 'test.png',
         width: 200,
         height: 300,
+        base64: false,
       }
     );
 
@@ -47,12 +46,16 @@ export default function App() {
 
   React.useEffect(() => {
     generateImage();
-  }, []);
+  }, [generateImage]);
 
   return (
     <View style={styles.container}>
+      <Image
+        source={{ uri: result }}
+        style={{ width: 200, height: 300 }}
+        onError={(e) => console.error(e.nativeEvent)}
+      />
       <Text>Result: {result}</Text>
-      <Image source={{ uri: result }} style={{ width: 200, height: 300 }} onError={(e) => console.error(e.nativeEvent)}/>
     </View>
   );
 }
