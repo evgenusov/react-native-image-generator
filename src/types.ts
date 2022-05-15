@@ -6,11 +6,10 @@ export interface IPictureLayer {
   y: number;
 }
 
-
 export interface ITextLayer {
   text: string;
   fontSize?: number;
-  fontName?: string;
+  fontFamily?: string;
   color: [number, number, number, number];
   width: number;
   height: number;
@@ -24,4 +23,5 @@ export interface IConfig {
   filename: string;
   width: number;
   height: number;
+  base64?: boolean;
 }

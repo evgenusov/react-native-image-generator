@@ -1,23 +1,13 @@
 package com.reactnativeimagegenerator
 
-import android.R.attr
+import android.graphics.*
+import android.util.Base64
 import com.facebook.react.bridge.*
+
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
-import android.R.attr.y
-
-import android.R.attr.x
-import android.graphics.*
-import android.os.Build
-import android.text.TextPaint
-import androidx.annotation.RequiresApi
-import android.text.Layout
-
-import android.text.StaticLayout
-
-
-
 
 
 class ImageGeneratorModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -40,7 +30,7 @@ class ImageGeneratorModule(reactContext: ReactApplicationContext) : ReactContext
     return TextLayer(
       data["text"] as String,
       data["fontSize"] as Double,
-      data["fontFamily"] as String,
+      data["fontFamily"] as String?,
       data["color"] as ArrayList<Double>?,
       data["width"] as Double,
       data["height"] as Double,
@@ -117,14 +107,23 @@ class ImageGeneratorModule(reactContext: ReactApplicationContext) : ReactContext
     val width = config.getInt("width")
     val height = config.getInt("height")
     val filename = config.getString("filename")
+    val base64: Boolean? = config.getBoolean("base64") as Boolean?
     val bgBitMapConfig = Bitmap.Config.ARGB_8888
     val bgBitmap = Bitmap.createBitmap(width, height, bgBitMapConfig)
     val canvas = Canvas(bgBitmap)
     if (layers != null) {
       for (item in layers.toArrayList()) drawLayer(canvas, createLayer(item as Map<String, Any>))
     }
-    val result = saveBitmap(bgBitmap, filename!!)
-    promise.resolve(result)
+    if(base64 !== null && base64) {
+      val baos = ByteArrayOutputStream()
+      bgBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+      val result =  Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
+      promise.resolve("data:image/png;base64,${result}")
+    } else {
+      val result = saveBitmap(bgBitmap, filename!!)
+      promise.resolve(result)
+    }
+
   }
 
 

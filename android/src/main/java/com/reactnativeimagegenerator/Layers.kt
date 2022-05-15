@@ -16,7 +16,7 @@ class PictureLayer(
 class TextLayer(
   var text: String,
   var fontSize: Double,
-  var fontName: String,
+  var fontFamily: String?,
   var color: ArrayList<Double>?,
   var width: Double,
   var height: Double,
