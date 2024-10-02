@@ -44,6 +44,10 @@ class ImageGeneratorModule(reactContext: ReactApplicationContext) : ReactContext
       val url = URL(layer.uri);
       return BitmapFactory.decodeStream(url.openConnection().getInputStream())
     }
+    if ("file" in layer.uri) {
+      val imgFile = File(layer.uri.replace("file://", ""));
+      return BitmapFactory.decodeFile(imgFile.absolutePath);
+    }
     return BitmapFactory.decodeStream(reactApplicationContext.assets.open(layer.uri));
   }
 
