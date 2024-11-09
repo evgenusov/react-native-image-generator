@@ -26,6 +26,7 @@ class TextLayer : Layer {
     var height: Float
     var x: Float
     var y: Float
+    var bold: Bool
     
     
     init(text: String,
@@ -35,6 +36,7 @@ class TextLayer : Layer {
          x: Float,
          y: Float,
          fontFamily: String?,
+         bold: Bool?,
          color: [Float]?) {
         self.text = text;
         self.fontSize = fontSize;
@@ -44,5 +46,6 @@ class TextLayer : Layer {
         self.height = height;
         self.x = x;
         self.y = y;
+        self.bold = bold ?? false;
     }
 }

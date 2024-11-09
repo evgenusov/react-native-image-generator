@@ -35,7 +35,8 @@ class ImageGeneratorModule(reactContext: ReactApplicationContext) : ReactContext
       data["width"] as Double,
       data["height"] as Double,
       data["x"] as Double,
-      data["y"] as Double
+      data["y"] as Double,
+      data["bold"] as Boolean
     )
   }
 
@@ -85,6 +86,11 @@ class ImageGeneratorModule(reactContext: ReactApplicationContext) : ReactContext
     } else {
       paint.color = Color.WHITE;
     }
+
+    if (layer.bold) {
+      paint.setTypeface(Typeface.DEFAULT_BOLD);
+    }
+    
     paint.textSize = layer.fontSize.toFloat()
     canvas.drawText(layer.text, layer.x.toFloat(), layer.y.toFloat(), paint)
   }

@@ -23,6 +23,7 @@ class ImageGenerator: NSObject {
                 x: layer["x"] as! Float,
                 y: layer["y"] as! Float,
                 fontFamily: layer["fontFamily"] as? String,
+                bold: layer["bold"] as? Bool,
                 color: layer["color"] as? [Float]
             )
         }
@@ -56,7 +57,12 @@ class ImageGenerator: NSObject {
             blue: CGFloat(layer.color[2]),
             alpha: CGFloat(layer.color[3])
         );
-        let textFont = UIFont(name: layer.fontFamily, size: CGFloat(layer.fontSize))
+        let textFont: UIFont!
+        if (layer.bold) {
+            textFont = UIFont.systemFont(ofSize: CGFloat(layer.fontSize), weight: .heavy)
+        } else {
+            textFont = UIFont(name: layer.fontFamily, size: CGFloat(layer.fontSize))
+        }
         let text = NSString(string: layer.text);
         let textFontAttributes = [
             NSAttributedString.Key.font: textFont,
