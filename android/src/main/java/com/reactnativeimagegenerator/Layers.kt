@@ -21,5 +21,6 @@ class TextLayer(
   var width: Double,
   var height: Double,
   var x: Double,
-  var y: Double
+  var y: Double,
+  var bold: Boolean
 ) : Layer

@@ -15,6 +15,7 @@ export interface ITextLayer {
   height: number;
   x: number;
   y: number;
+  bold?: boolean;
 }
 
 export type ILayer = IPictureLayer | ITextLayer;
